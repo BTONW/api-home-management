@@ -1,0 +1,34 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "dist",
+    "rootDir": ".",
+    "lib": ["es2020"],
+    "target": "es2020",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "listFiles": false,
+    "pretty": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "paths": {
+      "@itbudget-db/*": ["src/db/*"],
+      "@itbudget-dto/*": ["src/dto/*"],
+      "@itbudget-connfig/*": ["config/*"],
+      "@itbudget-controllers/*": ["src/controllers/*"],
+      "@itbudget-entities/*": ["src/entities/*"],
+      "@itbudget-repositories/*": ["src/repositories/*"],
+      "@itbudget-services/*": ["src/services/*"]
+    }
+  },
+  "include": ["src/**/*", "config"],
+  "exclude": [
+    "node_modules"
+  ]
+}

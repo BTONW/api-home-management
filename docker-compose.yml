@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  postgres:
+    container_name: home-management-postgres
+    image: postgres:14.1
+    restart: always
+    environment:
+      - POSTGRES_USER=hmpostgres
+      - POSTGRES_PASSWORD=hmpostgres
+    ports:
+      - '5434:5432'

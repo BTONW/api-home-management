@@ -1,0 +1,13 @@
+# Bundle and system directory
+node_modules
+dist
+build
+secret
+.vscode
+.DS_Store
+
+# Environment file
+
+# Lock file
+package-lock.json
+yarn.lock
