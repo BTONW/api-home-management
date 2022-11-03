@@ -1,4 +1,4 @@
-import { migrateDb } from '@itbudget-db/typeorm-cli'
+import { migrateDb } from '@hm-db/typeorm-cli'
 
 migrateDb()
   .then(() => process.exit())

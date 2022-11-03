@@ -1,6 +1,6 @@
 import { ConnectionOptions, createConnection } from 'typeorm'
 import { processEvents } from './process'
-import initDbConfig from '@itbudget-connfig/db.config'
+import initDbConfig from '@hm-connfig/db.config'
 
 export const initDb = async (config: ConnectionOptions = initDbConfig) => {
   const connection = await createConnection(config);

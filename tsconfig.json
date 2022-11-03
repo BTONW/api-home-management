@@ -18,13 +18,14 @@
       "node_modules/@types"
     ],
     "paths": {
-      "@itbudget-db/*": ["src/db/*"],
-      "@itbudget-dto/*": ["src/dto/*"],
-      "@itbudget-connfig/*": ["config/*"],
-      "@itbudget-controllers/*": ["src/controllers/*"],
-      "@itbudget-entities/*": ["src/entities/*"],
-      "@itbudget-repositories/*": ["src/repositories/*"],
-      "@itbudget-services/*": ["src/services/*"]
+      "@hm-db/*": ["src/db/*"],
+      "@hm-dto/*": ["src/dto/*"],
+      "@hm-enum/*": ["src/enum/*"],
+      "@hm-connfig/*": ["config/*"],
+      "@hm-controllers/*": ["src/controllers/*"],
+      "@hm-entities/*": ["src/entities/*"],
+      "@hm-repositories/*": ["src/repositories/*"],
+      "@hm-services/*": ["src/services/*"]
     }
   },
   "include": ["src/**/*", "config"],
