@@ -1,5 +1,5 @@
 
-import { initDb } from '@itbudget-db/typeorm-cli'
+import { initDb } from '@hm-db/typeorm-cli'
 import app from './app'
 
 const port = parseInt(process.env.PORT || '5001', 0)

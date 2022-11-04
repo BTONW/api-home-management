@@ -2,7 +2,7 @@ import { Response } from 'express'
 import { HttpStatus } from '@hm-enum/controller.enum'
 import { AppHttpResponse } from '@hm-dto/http.dto'
 
-class Service {
+class Controller {
 
   private _response: AppHttpResponse = {
     body: '',
@@ -24,6 +24,10 @@ class Service {
       }
     })
     return data
+  }
+
+  constructor () {
+    
   }
 
   send(res: Response, data: AppHttpResponse = this._response) {
@@ -56,4 +60,4 @@ class Service {
   }
 }
 
-export default Service
+export default Controller
