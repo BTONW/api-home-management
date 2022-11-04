@@ -11,7 +11,7 @@ class Service {
   getProducts(options: CriteriaSearchProduct = {}) {
     return getCustomRepository(ProductRepository)
       .getProducts(options)
-      .getManyAndCount()
+      .getMany()
   }
 
 }
