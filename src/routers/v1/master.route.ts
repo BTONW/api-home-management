@@ -4,6 +4,6 @@ import Controller from '@hm-controllers/master.controller'
 const router = Router()
 const ctrl = new Controller()
 
-router.get('/cost-item', ctrl.getCostItem)
+router.get('/months', ctrl.getMonth)
 
 export default router

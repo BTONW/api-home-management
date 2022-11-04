@@ -5,14 +5,20 @@ import { CostValue as CostValueEntity } from './CostValue.entity'
 
 @Entity()
 export class Month extends CommonEntity {
-  @Column({ type: 'varchar', unique: true, width: 2, nullable: false })
+  @Column({ type: 'varchar', unique: true, length: 2, nullable: false })
   code: MonthCode
 
-  @Column({ type: 'varchar', width: 20 })
-  name_full: string
+  @Column({ type: 'varchar', length: 20 })
+  name_en_full: string
 
-  @Column({ type: 'varchar', width: 3 })
-  name_short: string
+  @Column({ type: 'varchar', length: 3 })
+  name_en_short: string
+
+  @Column({ type: 'varchar', length: 20 })
+  name_th_full: string
+
+  @Column({ type: 'varchar', length: 5  })
+  name_th_short: string
 
   @OneToMany(() => CostValueEntity, obj => obj.month)
   cost_values: CostValueEntity[]
