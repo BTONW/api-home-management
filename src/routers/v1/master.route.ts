@@ -5,5 +5,6 @@ const router = Router()
 const ctrl = new Controller()
 
 router.get('/months', ctrl.getMonths)
+router.get('/budgets', ctrl.getBudgets)
 
 export default router

@@ -22,3 +22,13 @@ export enum PaymentType {
   CASH = 'Cash',
   CREDIT = 'Credit'
 }
+
+export enum BudgetCode {
+  MON = 'Mon',
+  TUE = 'Tue',
+  WED = 'Wed',
+  THU = 'Thu',
+  FRI = 'Fri',
+  SAT = 'Sat',
+  SUN = 'Sun'
+}
