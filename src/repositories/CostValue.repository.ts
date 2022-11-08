@@ -20,10 +20,10 @@ export class CostValueRepository extends Repository<CostValueEntity> {
       query.andWhere('cost_value.id = :id', { id })
     }
     if (dates) {
-      query.andWhere('cost_value.dates IN (:...dates)', { dates })
+      query.andWhere('cost_value.date IN (:...dates)', { dates })
     }
     if (payments) {
-      query.andWhere('cost_value.dates IN (:...payments)', { payments })
+      query.andWhere('cost_value.payment IN (:...payments)', { payments })
     }
 
     return query

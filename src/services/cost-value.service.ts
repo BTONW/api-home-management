@@ -11,13 +11,21 @@ class Service {
     
   }
 
-  private _filterCostValueByDay = (date: Date, day: BudgetCode) =>
+  private _filterCostValueByDay = (date: Date, day: string) =>
     moment(date).format('ddd') === day
 
   private _mapCostValueByDay = (cost: CostValueEntity) => ({
     Product: cost.product.name,
     Price: cost.cost_amount
   })
+
+  getCostValues = async (options: CriteriaSearchCostValue = {}) => {
+    const costValues = await getCustomRepository(CostValueRepository)
+      .getCostValues(options)
+      .getMany()
+
+    return costValues
+  }
 
   getCostValuesByDays = async (options: CriteriaSearchCostValue = {}) => {
     const costValues = await getCustomRepository(CostValueRepository)
