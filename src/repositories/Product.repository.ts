@@ -10,8 +10,8 @@ export class ProductRepository extends Repository<ProductEntity> {
       .setParameters({
         is_active: BitStatus.TRUE
       })
-      .leftJoinAndSelect('product.cost_values', 'cost_values', 'cost_values.is_active = :is_active')
-      .leftJoinAndSelect('cost_values.month', 'month', 'month.is_active = :is_active')
+      // .leftJoinAndSelect('product.cost_values', 'cost_values', 'cost_values.is_active = :is_active')
+      // .leftJoinAndSelect('cost_values.month', 'month', 'month.is_active = :is_active')
       .where('product.is_active = :is_active')
 
     return query

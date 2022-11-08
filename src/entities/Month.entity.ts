@@ -1,7 +1,6 @@
-import { Column, Entity, OneToMany } from 'typeorm'
+import { Column, Entity } from 'typeorm'
 import { MonthCode } from '@hm-enum/entity.enum'
 import { CommonEntity } from './CommonEntity'
-import { CostValue as CostValueEntity } from './CostValue.entity'
 
 @Entity()
 export class Month extends CommonEntity {
@@ -19,8 +18,5 @@ export class Month extends CommonEntity {
 
   @Column({ type: 'varchar', length: 5  })
   name_th_short: string
-
-  @OneToMany(() => CostValueEntity, obj => obj.month)
-  cost_values: CostValueEntity[]
   
 }
