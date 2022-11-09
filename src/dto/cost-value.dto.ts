@@ -5,3 +5,10 @@ export interface CriteriaSearchCostValue {
   dates?: string[]
   payments?: PaymentType[]
 }
+
+export interface BodyCreateCostValue {
+  date: string
+  product_id: number
+  cost_amount: number
+  payment: PaymentType
+}

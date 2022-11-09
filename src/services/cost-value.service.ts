@@ -3,13 +3,9 @@ import { getCustomRepository } from 'typeorm'
 import { BudgetCode } from '@hm-enum/entity.enum'
 import { CostValueRepository } from '@hm-repositories/CostValue.repository'
 import { CostValue as CostValueEntity } from '@hm-entities/CostValue.entity'
-import { CriteriaSearchCostValue } from '@hm-dto/cost-value.dto'
+import { CriteriaSearchCostValue, BodyCreateCostValue } from '@hm-dto/cost-value.dto'
 
 class Service {
-
-  constructor() {
-    
-  }
 
   private _filterCostValueByDay = (date: Date, day: string) =>
     moment(date).format('ddd') === day
@@ -55,6 +51,13 @@ class Service {
         .filter(cost => this._filterCostValueByDay(cost.date, BudgetCode.SUN))
         .map(this._mapCostValueByDay),
     }
+  }
+
+  createCostValues = async (options: BodyCreateCostValue[]) => {
+    const result = await getCustomRepository(CostValueRepository)
+      .createCostValues(options)
+
+    return result
   }
 
 }

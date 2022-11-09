@@ -27,6 +27,15 @@ class Controller extends CommonController {
       return this.serverError(res, { success: false, message: err.message })
     }
   }
+
+  createCostValues = async (req: Request, res: Response) => {
+    try {
+      const body = await this._service.createCostValues(req.body)
+      return this.ok(res, { success: true, body })
+    } catch (err) {
+      return this.serverError(res, { success: false, message: err.message })
+    }
+  }
 }
 
 export default Controller

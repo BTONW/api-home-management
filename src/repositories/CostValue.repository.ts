@@ -1,6 +1,6 @@
 import { BitStatus } from '@hm-enum/entity.enum'
 import { EntityRepository, Repository } from 'typeorm'
-import { CriteriaSearchCostValue } from '@hm-dto/cost-value.dto'
+import { CriteriaSearchCostValue, BodyCreateCostValue } from '@hm-dto/cost-value.dto'
 import { CostValue as CostValueEntity } from '@hm-entities/CostValue.entity'
 
 @EntityRepository(CostValueEntity)
@@ -27,5 +27,19 @@ export class CostValueRepository extends Repository<CostValueEntity> {
     }
 
     return query
+  }
+
+  createCostValues = (body: BodyCreateCostValue[]) => {
+    const models = body.map(item => this.create({
+      date: item.date,
+      payment: item.payment,
+      is_active: BitStatus.TRUE,
+      cost_amount: item.cost_amount,
+      product: {
+        id: item.product_id
+      }
+    }))
+
+    return this.save(models)
   }
 }
