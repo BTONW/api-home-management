@@ -10,6 +10,15 @@ class Controller extends CommonController {
     this._service = new MasterService()
   }
 
+  getBalance = async (req: Request, res: Response) => {
+    try {
+      const body = await this._service.getBalance(req.query.date)
+      return this.ok(res, { success: true, body })
+    } catch (err) {
+      return this.serverError(res, { success: false, message: err.message })
+    }
+  }
+
   getMonths = async (req: Request, res: Response) => {
     try {
       const body = await this._service.getMonths()
