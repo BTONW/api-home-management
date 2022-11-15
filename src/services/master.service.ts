@@ -2,14 +2,8 @@ import { BitStatus } from '@hm-enum/entity.enum'
 import { getRepository, FindManyOptions } from 'typeorm'
 import { Month as MonthEntity } from '@hm-entities/Month.entity'
 import { Budget as BudgetEntity } from '@hm-entities/Budget.entity'
-import { Balance as BalanceEntity } from '@hm-entities/Balance.entity'
 
 class Service {
-
-  getBalance(date: any) {
-    return getRepository(BalanceEntity)
-      .findOne({ date })
-  }
 
   getMonths(options: FindManyOptions<MonthEntity> = {}) {
     return getRepository(MonthEntity)

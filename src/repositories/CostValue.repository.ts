@@ -1,9 +1,6 @@
-import moment from 'moment-timezone'
-import { BitStatus, PaymentType, BudgetCode } from '@hm-enum/entity.enum'
-import { EntityRepository, Repository, getRepository } from 'typeorm'
+import { BitStatus } from '@hm-enum/entity.enum'
+import { EntityRepository, Repository } from 'typeorm'
 import { CriteriaSearchCostValue, BodyCreateCostValue } from '@hm-dto/cost-value.dto'
-import { Budget as BudgetEntity } from '@hm-entities/Budget.entity'
-import { Balance as BalanceEntity } from '@hm-entities/Balance.entity'
 import { CostValue as CostValueEntity } from '@hm-entities/CostValue.entity'
 
 @EntityRepository(CostValueEntity)
@@ -12,6 +9,7 @@ export class CostValueRepository extends Repository<CostValueEntity> {
     const query = this.createQueryBuilder('cost_value')
       .leftJoinAndSelect('cost_value.product', 'product')
       .where('cost_value.is_active = :is_active', { is_active: BitStatus.TRUE })
+      .andWhere('cost_value.cost_amount > 0')
     
     return query
   }
@@ -33,7 +31,7 @@ export class CostValueRepository extends Repository<CostValueEntity> {
   }
 
   createCostValues = async (body: BodyCreateCostValue[]) => {
-    const costValueModels = body.map(item => this.create({
+    const models = body.map(item => this.create({
       date: item.date,
       payment: item.payment,
       is_active: BitStatus.TRUE,
@@ -42,39 +40,6 @@ export class CostValueRepository extends Repository<CostValueEntity> {
         id: item.product_id
       }
     }))
-
-    const result = await this.save(costValueModels)
-    
-    const budgetReop = getRepository(BudgetEntity)
-    const budget = await budgetReop.findOne({ code: BudgetCode.FRI })
-
-    if (budget?.id) {
-      const balanceRepo = getRepository(BalanceEntity)
-      await Promise.all(result
-        .filter(item => 
-          item.is_active === BitStatus.TRUE &&
-          item.payment === PaymentType.CREDIT &&
-          moment(item.date).format('ddd') === BudgetCode.FRI
-        )
-        .map(async item => {
-          const hasBalance = await balanceRepo.findOne({ date: item.date })
-          return balanceRepo.save(
-            balanceRepo.create(hasBalance?.id
-              ? {
-                  ...hasBalance,
-                  balance_amount: hasBalance?.balance_amount - item.cost_amount
-                }
-              : {
-                  date: item.date,
-                  is_active: BitStatus.TRUE,
-                  balance_amount: budget.budget_amount - item.cost_amount
-                }
-            )
-          )
-        })
-      )
-    }
-
-    return result
+    return this.save(models)
   }
 }
