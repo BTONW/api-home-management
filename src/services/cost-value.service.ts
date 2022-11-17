@@ -3,7 +3,7 @@ import { getCustomRepository } from 'typeorm'
 import { BudgetCode } from '@hm-enum/entity.enum'
 import { CostValueRepository } from '@hm-repositories/CostValue.repository'
 import { CostValue as CostValueEntity } from '@hm-entities/CostValue.entity'
-import { CriteriaSearchCostValue, BodyCreateCostValue } from '@hm-dto/cost-value.dto'
+import { CriteriaSearchCostValue, BodyCreateCostValue, BodyUpdateCostValue } from '@hm-dto/cost-value.dto'
 
 class Service {
 
@@ -11,6 +11,7 @@ class Service {
     moment(date).format('ddd') === day
 
   private _mapCostValueByDay = (cost: CostValueEntity) => ({
+    CostValueId: cost.id,
     Product: cost.product.name,
     Price: cost.cost_amount
   })
@@ -56,6 +57,13 @@ class Service {
   createCostValues = async (options: BodyCreateCostValue[]) => {
     const result = await getCustomRepository(CostValueRepository)
       .createCostValues(options)
+
+    return result
+  }
+
+  updateCostValues = async (options: BodyUpdateCostValue[]) => {
+    const result = await getCustomRepository(CostValueRepository)
+      .updateCostValues(options)
 
     return result
   }

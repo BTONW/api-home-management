@@ -8,5 +8,6 @@ router.get('/', ctrl.getCostValues)
 router.get('/days', ctrl.getCostValuesByDays)
 
 router.post('/create', ctrl.createCostValues)
+router.put('/update', ctrl.updateCostValues)
 
 export default router
