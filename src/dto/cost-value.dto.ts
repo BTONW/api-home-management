@@ -6,6 +6,15 @@ export interface CriteriaSearchCostValue {
   payments?: PaymentType[]
 }
 
+export interface CriteriaReportCostValue {
+  groupDays?: {
+    type: 'weekday' | 'weekend' | ''
+    startAt: string // string should => 'YYYY-MM-DD'
+    endAt: string
+    days: string[]
+  }[]
+}
+
 export interface BodyCreateCostValue {
   date: string
   product_id: number

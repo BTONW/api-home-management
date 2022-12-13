@@ -28,6 +28,15 @@ class Controller extends CommonController {
     }
   }
 
+  getReportCostValues = async (req: Request, res: Response) => {
+    try {
+      const body = await this._service.getReportCostValues(req.query)
+      return this.ok(res, { success: true, body })
+    } catch (err) {
+      return this.serverError(res, { success: false, message: err.message })
+    }
+  }
+
   createCostValues = async (req: Request, res: Response) => {
     try {
       const body = await this._service.createCostValues(req.body)

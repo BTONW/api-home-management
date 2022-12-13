@@ -1,9 +1,9 @@
 import moment from 'moment-timezone'
 import { getCustomRepository } from 'typeorm'
-import { BudgetCode } from '@hm-enum/entity.enum'
+import { BudgetCode, PaymentType } from '@hm-enum/entity.enum'
 import { CostValueRepository } from '@hm-repositories/CostValue.repository'
 import { CostValue as CostValueEntity } from '@hm-entities/CostValue.entity'
-import { CriteriaSearchCostValue, BodyCreateCostValue, BodyUpdateCostValue } from '@hm-dto/cost-value.dto'
+import { CriteriaSearchCostValue, CriteriaReportCostValue, BodyCreateCostValue, BodyUpdateCostValue } from '@hm-dto/cost-value.dto'
 
 class Service {
 
@@ -52,6 +52,26 @@ class Service {
         .filter(cost => this._filterCostValueByDay(cost.date, BudgetCode.SUN))
         .map(this._mapCostValueByDay),
     }
+  }
+
+  getReportCostValues = async (options: CriteriaReportCostValue) => {
+    
+    const request = options.groupDays.map(group => {
+      const params: CriteriaSearchCostValue = {
+        dates: group.days,
+        payments: [PaymentType.CREDIT]
+      }
+      return getCustomRepository(CostValueRepository)
+        .getSumCostValues(params)
+        .getRawOne()
+    })
+
+    const result = await Promise.all(request)
+
+    return options.groupDays.map((group, idx) => ({
+      ...group,
+      total: result[idx]?.sum || 0
+    }))
   }
 
   createCostValues = async (options: BodyCreateCostValue[]) => {

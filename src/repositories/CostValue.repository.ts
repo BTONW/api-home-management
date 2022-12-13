@@ -1,6 +1,6 @@
 import { BitStatus } from '@hm-enum/entity.enum'
 import { EntityRepository, Repository } from 'typeorm'
-import { CriteriaSearchCostValue, BodyCreateCostValue, BodyUpdateCostValue } from '@hm-dto/cost-value.dto'
+import { CriteriaSearchCostValue, CriteriaReportCostValue, BodyCreateCostValue, BodyUpdateCostValue } from '@hm-dto/cost-value.dto'
 import { CostValue as CostValueEntity } from '@hm-entities/CostValue.entity'
 
 @EntityRepository(CostValueEntity)
@@ -29,6 +29,16 @@ export class CostValueRepository extends Repository<CostValueEntity> {
     if (payments) {
       query.andWhere('cost_value.payment IN (:...payments)', { payments })
     }
+
+    return query
+  }
+
+  getSumCostValues = (options: CriteriaSearchCostValue) => {
+    const query = this.getCostValues(options)
+
+    query
+      .select('SUM(cost_value.cost_amount)', 'sum')
+      .groupBy('cost_value.created_at')
 
     return query
   }
